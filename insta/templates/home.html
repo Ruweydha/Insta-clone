@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+
+    {% block content %} 
+    {% if current_user %}
+    <h1 class='text-center'>Welcome to Instagram {{current_user.username}}
+    {% else %}
+    <h1 class='text-center'>Welcome to Instagram </h1>
+        {% endif %}  
+   {%endblock%}
+   
+
