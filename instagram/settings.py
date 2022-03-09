@@ -18,8 +18,7 @@ from decouple import config,Csv
 
 MODE=config("MODE", default="dev")
 SECRET_KEY = config('SECRET_KEY')
-DEBUG = config('DEBUG', default=False, cast=bool)
-# development
+DEBUG = os.environ.get('DEBUG', False)# development# development
 if config('MODE')=="dev":
    DATABASES = {
        'default': {
