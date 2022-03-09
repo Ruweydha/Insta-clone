@@ -6,43 +6,33 @@
         <div class="row mt-5">
             <div id="main" class="col-lg-8 col-12 my-4">
 
+        
                 <div class="container">
                     <div class="d-flex justify-content-around position-relative profile">
-                     <div></div>
-                     {% if profile %}
                      <div class="m-3">
-                         <img src="{{profile.profile_photo.url}}" style="width: 250px; height: 250px; border-radius: 100%;"  class="img-responsive profile-photo"  alt="">
+                         <img src="{{profile.profile_photo.url}}" style="width: 200px; height: 200px; border-radius: 100%; float: left;"  class="img-responsive profile-photo"  alt="">
                      </div>
                      <div></div>
                      <div class="mt-5">
-                         <!-- {{images|length}} posts -->
                          <p>{{current_user.username}}</p> 
+                         <p><p><strong>{{images|length}}</strong> posts</p></p>
+                         <br>
+                            <p>
+                            {% autoescape on %}
+                            {{profile.bio| safe}}
+                           {% endautoescape %}
+                         </p>
                      </div>
                      <div class="mt-5">
-                         <!-- {% autoescape on %}
-                         {{profile.bio| safe}}
-                        {% endautoescape %} -->
-                                              </div>
-                     <div class="col-md-2"></div>
-                     {% else %}
-                     <p>You have not yet created a profile. <a href="{% url 'update_profile' %}">Create one here</a></p>
-                     {% endif %}
+                       
+                         <br>
+                         <p><p><strong>0</strong> Followers</p></p>
                     </div>
-                    <div class="d-flex justify-content-around details">
-                     <div></div>
-                     <div class="m-2 ">
-                     </div>
-                     <div></div>
-                     <div class="mt-2 ">
-                         <p><strong>{{images|length}}</strong> posts</p>
-                     </div>
-                     <div class="mt-2">
-                         <p><strong>0</strong> Followers</p>
-                     </div>
-                     <div class="mt-2">
-                        <p> <strong>0</strong> following</p>
-                     </div>
-                    </div>   
+                     <div class="mt-5 p-l2">
+                       
+                        <br>
+                        <p><p><strong>0</strong> Following</p></p>
+                   </div>
                  </div>
 
              </div>   
@@ -52,9 +42,10 @@
 
 <div class="container">     
         <div class="row">
+            <h2 class="text-center">Posts</h2>
             {% for image in images %}
             <div class="col-md-3 ">
-                <div class="card mx-auto" style="width: 18rem;">
+                <div class="card mx-auto m-1" style="width: 18rem;">
                     <img src="{{image.image.url}}" class="card-img-top img-fluid posts" alt="...">
                     <div class="card-body">
                       <p class="card-text">{{image.caption}}</p>
