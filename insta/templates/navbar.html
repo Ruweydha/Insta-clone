@@ -1,43 +1,49 @@
+{% load static %}
+{% load bootstrap5 %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  {% block styles %}
+  {% bootstrap_css %}
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/solid.css">
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-              <a href="/">   
-                   <img src="/static/images/Instagram_logo.svg.png" class="img-fluid" alt="" style="width: 120px; margin-right: 25px;">
-              </a>
-        </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Menu
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="#">Home</a></li>
-              <li><a class="dropdown-item" href="#">Profile</a></li>
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/accounts/password/change">Change Password</a></li>
-              <li><a class="dropdown-item" href="/accounts/logout">Logout</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-          </li>
-        </ul>
-        <form class="d-flex" role = "search" action = "#">
-          <input class="form-control me-2" type="search" placeholder="Search Article" aria-label="Search" name="article">
-          <button class="btn btn-outline-success" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-        </form>
-      </div>
+  <div class="container-fluid-lg border-bottom">
+    <div class="container-lg" id="navWrapper">
+        <div class="row">
+            <div class="d-flex align-items-center justify-content-evenly">
+                <div id="logo" class="col-md-4">
+                    <a href="{% url 'home'%}">
+                        <div class="my-0 py-0"><img src="{% static 'img/instagram.png'%}" alt="" class="img-fluid"></div>
+                    </a>
+                </div>
+                <div id="searchDiv" class="col-md-4 d-none d-md-flex">
+                    <form action="{% url 'search_profile' %}">
+                        <input type="text" placeholder="&#xF002; Search"
+                            id="search" name="profile" />
+                    </form>
+                </div>
+                <div id="nav" class="col-md-4 flex-grow-1 align-items-center">
+                    <ul class="d-flex align-items-centre justify-content-between">
+                        <li><a href="{% url 'home' %}"><i class='bx bxs-home'></i></a></li>
+                        <li><a href="#"><i class='bx bxl-messenger'></i></a></li>
+                        <li data-bs-toggle="modal" data-bs-target="#uploadModal"><a href="#"><i
+                                    class='bx bx-message-square-add'></i></a></li>
+                        <li><a href="#"><i class='bx bx-heart'></i></a></li>
+                        <li><a href="{% url 'profile'  current_user.username %}"><i class='bx bx-user-circle'></i></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
     </div>
-  </nav>
+   
+</div>
 </body>
+</html>
