@@ -37,8 +37,10 @@ class Profile(models.Model):
 
     @classmethod
     def search_by_username(cls, username):
-        user = CustomUser.objects.get(username__icontains = username)
-        profile = cls.objects.get(user = user.id)
+        user = CustomUser.objects.filter(username__icontains = username).first()
+        profile = cls.objects.filter(user = user).first()
+        print(user)
+        print(profile)
         return profile 
     
 
@@ -66,5 +68,5 @@ class Comments(models.Model):
     image = models.ForeignKey(Images,related_name='comments', on_delete=models.CASCADE) 
 
 class Like(models.Model):
-    image = models.ForeignKey(Images, on_delete=models.CASCADE)                 
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    image = models.ForeignKey(Images, related_name='likes', on_delete=models.CASCADE)                 
+    user = models.ForeignKey(User, related_name= 'like', on_delete=models.CASCADE)
