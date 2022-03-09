@@ -29,7 +29,6 @@
                 <div class="row mt-5">
                     <div id="main" class="col-lg-8 col-12 my-4">
         
-                        <!-- FEED -->
                         {% for image in images%}
                         <div class="card mt-4 post">
                             <div class="post-header px-4 py-3">
@@ -60,21 +59,13 @@
                             <div class="post-footer">
                                 <div class="post-footer-icons d-flex justify-content-between p-2">
                                     <div class="post-footer-icons-left">
-        
-                                        {% if post in liked_posts%}
-                                        <a href="{% url 'like' post_id=post.id%}"><i
-                                                class='bx bxs-heart px-2 ms-0 text-danger'></i></a>
-                                        {% else %}
-                                        <a href="#"><i class='bx bx-heart px-2 ms-0'></i></a>
-                                        {% endif %}
-        
+
                                         {% if image in liked_images%}
-                                        <a href="{% url 'like' image.id%}"><i
+                                        <a href="{% url 'like' image.id %}"><i
                                                 class='bx bxs-heart px-2 ms-0 text-danger'></i></a>
                                         {% else %}
-                                        <a href="{% url 'like' image.id%}"><i class='bx bx-heart px-2 ms-0'></i></a>
+                                        <a href="{% url 'like' image.id %}"><i class='bx bx-heart px-2 ms-0'></i></a>
                                         {% endif %}
-        
         
                                         <a href="#"><i class='bx bx-message-rounded px-2'></i></a>
                                         <a href="#"><i class='bx bx-paper-plane px-2'></i></a>
@@ -94,8 +85,8 @@
                                     <p id="viewComments" data-bs-toggle="modal" data-bs-target="#imageModal" data-url="{{ post.image.url }}"
                                         data-username="{{ post.user.user.username }}"
                                         data-profilepic="{{post.user.profile_pic.url}}" data-caption="{{ post.description }}"
-                                        class="text-muted">View
-                                            all {{ image.comments.count }}
+                                        class="text-muted">
+                                        Viewall {{ image.comments.count }}
                                             comment{{ image.comments.count | pluralize}}</p>
                                     {% endif %}
                                     {% else %}
@@ -189,10 +180,10 @@
                                         <a href="{% url 'profile'  current_user.username %}" class="username">{{current_user.username}}</a>
                                     </div>
                                 </div>
-                                <!-- <div class="logout">
-                                    <a href="{% url 'logout'%}">Logout</a>
+                                <div class="logout mt-2">
+                                    <a href="/accounts/logout">Logout</a>
                                 </div>
-                            </div> -->
+                            </div>
                             <div class="suggestions mt-5 px-2">
         
                                 <p>Suggestions For You</p>
