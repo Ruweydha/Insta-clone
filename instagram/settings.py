@@ -29,7 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-LOGIN_REDIRECT_URL = 'home'
+AUTH_USER_MODEL = 'insta.CustomUser'
+LOGIN_REDIRECT_URL = 'create_profile'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 # Application definition
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'insta.apps.InstaConfig',
     'bootstrap5',
+    'tinymce',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -68,7 +70,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django-template-context_processors.media',
             ],
         },
     },
