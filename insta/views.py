@@ -30,7 +30,7 @@ def home(request):
 
     return render(request, 'home.html', {"current_user":current_user, "images": images, "form":form})
 """
-View for creating profile page
+View for creating profile page if you are a new user
 """
 
 @login_required(login_url='/accounts/login/')
@@ -57,7 +57,7 @@ def create_profile(request):
 
     return render(request, 'create_profile.html', {"form": form, "current_user":current_user})    
 """
-View for profile page
+View for profile page of the current user
 """
 @login_required(login_url='/accounts/login/')
 def profile(request, username):
@@ -88,7 +88,9 @@ def upload_images(request):
         form = ImagesForm()
 
     return render(request, 'images.html', {"form": form, "current_user":current_user})    
-
+"""
+View for following and unfollowing
+"""
 @login_required(login_url='/accounts/login/')
 def followToggle(request, user):
 
@@ -98,6 +100,9 @@ def followToggle(request, user):
 
     return redirect('viewProfile', username = userObj.username )        
 
+"""
+View for searching for users by their username"
+"""
 @login_required(login_url='/accounts/login/')
 def search_profile(request):
       current_user = request.user
@@ -112,6 +117,9 @@ def search_profile(request):
         message = "You haven't searched for any term"
         return render(request, 'search.html',{"message":message, "current_user":current_user})
 
+"""
+View for adding a comment it takes in the argument of image id
+"""
 @login_required(login_url='/accounts/login/')
 def comment(request, id):
      image = Images.objects.get(id = id)
@@ -127,14 +135,9 @@ def comment(request, id):
 
         return redirect("home")   
 
-@login_required(login_url='/accounts/login/')
-def view_image(request, id):
-    current_user = request.user
-    image = Images.objects.get(id = id)
-    comments = Comments.objects.filter(image = image).all()
-
-    return render(request, 'view_image.html', {"image":image, "comments": comments, "current_user":current_user})
-
+"""
+View for viewing someone's profile from homepage
+"""
 @login_required(login_url='/accounts/login/')
 def view_profile(request, username):
     current_user = request.user
@@ -145,6 +148,9 @@ def view_profile(request, username):
 
     return render(request, 'users_profile.html', {"profile": profile, "images":images, "current_user":current_user, "user":user})
 
+"""
+View for liking images
+"""
 @login_required(login_url='/accounts/login/')
 def like(request, id):
     current_user = request.user
