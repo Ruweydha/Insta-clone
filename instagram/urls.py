@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('insta.urls')),
     path('accounts/', include('registration.backends.simple.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('tinymce/', include('tinymce.urls')),
 ]
