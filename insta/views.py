@@ -15,7 +15,9 @@ View for home page. It requires one to be logged in inorder to access
 def home(request):
     current_user = request.user
     images = Images.objects.all().order_by("date_posted").reverse()
-    
+    liked_images = [i for i in Images.objects.all() if Like.objects.filter(user = request.user, image=i)]
+
+
     if request.method == 'POST':
         form = ImagesForm(request.POST, request.FILES)
         if form.is_valid():
@@ -28,7 +30,7 @@ def home(request):
     else:
         form = ImagesForm()    
 
-    return render(request, 'home.html', {"current_user":current_user, "images": images, "form":form})
+    return render(request, 'home.html', {"current_user":current_user, "images": images, "form":form, "liked_images":liked_images})
 """
 View for creating profile page if you are a new user
 """
@@ -159,6 +161,7 @@ def like(request, id):
     if like:
         like.delete()
     else:
+        print(current_user, image)
         new_like = Like(user=current_user, image=image)
         new_like.save()
 
