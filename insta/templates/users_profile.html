@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load bootstrap5 %}
+{% block content %}
+
+<div class="container-fluid">
+    <div class="container-lg" id="contentWrapper">
+        <div class="row mt-5">
+            <div id="main" class="col-lg-8 col-12 my-4">
+
+                <div class="container">
+                    <div class="d-flex justify-content-around position-relative profile">
+                     <div></div>
+                     {% if profile %}
+                     <div class="m-3">
+                         <img src="{{profile.profile_photo.url}}" style="width: 250px; height: 250px; border-radius: 100%;"  class="img-responsive profile-photo"  alt="">
+                     </div>
+                     <div></div>
+                     <div class="mt-5">
+                         <!-- {{images|length}} posts -->
+                         <p>{{current_user.username}}</p> 
+                     </div>
+                     <div class="mt-5">
+                        {% if profile.user.id != current_user.id%}
+                        {% if user in user.following.all %}
+                            <a href="{% url 'followToggle' user.username  %}" class="btn btn-primary">Unfollow</a>
+                        {% else %}
+                            <a  href="{% url 'followToggle' user.username  %}" class="btn btn-primary"> Follow </a>
+                        {% endif %}   
+            
+                    {% endif %} 
+                                              </div>
+                     <div class="col-md-2"></div>
+                     {% else %}
+                     <p>You have not yet created a profile. <a href="{% url 'update_profile' %}">Create one here</a></p>
+                     {% endif %}
+                    </div>
+                    <div class="d-flex justify-content-around details">
+                     <div></div>
+                     <div class="m-2 ">
+                     </div>
+                     <div></div>
+                     <div class="mt-2 ">
+                         <p><strong>{{images|length}}</strong> posts</p>
+                     </div>
+                     <div class="mt-2">
+                         <p><strong>0</strong> Followers</p>
+                     </div>
+                     <div class="mt-2">
+                        <p> <strong>0</strong> following</p>
+                     </div>
+                    </div>   
+                 </div>
+                 {% autoescape on %}
+                 {{profile.bio| safe}}
+                {% endautoescape %}
+
+             </div>   
+         </div>       
+     </div>           
+</div>
+<div class="container">
+    <div class="d-flex justify-content-start  profile-images">
+        
+        <div class="container">     
+            <div class="row">
+                {% for image in images %}
+                <div class="col-md-3 ">
+                    <div class="card mx-auto" style="width: 18rem;">
+                        <img src="{{image.image.url}}" class="card-img-top img-fluid posts" alt="...">
+                        <div class="card-body">
+                          <p class="card-text">{{image.caption}}</p>
+                        </div>
+                      </div>
+                </div>
+                {% empty %}
+                <h2>{{profile.user.username}} has no posts </h2>
+                {% endfor %}
+            </div>
+           
+        </div>
+    </div>
+    </div>
+</div>
+
+{% endblock %}
